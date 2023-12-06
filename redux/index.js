@@ -1,29 +1,44 @@
 import { applyMiddleware, createStore } from 'redux'
 import logger from 'redux-logger'
-
+import thunk from 'redux-thunk'
+import axios from 'axios'
 // action name constants
+const init = 'init'
 const inc = 'increment'
 const dec = 'decrement'
 const incByAmt = 'incrementByAmount'
 
 // store
-const store = createStore(reducer, applyMiddleware(logger.default))
-
-
+const store = createStore(reducer, applyMiddleware(logger.default, thunk.default))
 
 // reducer function
 function reducer(state = { amount: 1 }, action) {
-  if (action.type === inc) {
-    return { amount: state.amount + 1 }
-  }
-  if (action.type === dec) {
-    return { amount: state.amount - 1 }
-  }
-  if (action.type === incByAmt) {
-    return { amount: state.amount + action.payload }
+  switch (action.type) {
+    case init:
+      return { amount: action.payload }
+    case inc:
+      return { amount: state.amount + 1 }
+
+    case dec:
+      return { amount: state.amount - 1 }
+
+    case incByAmt:
+      return { amount: state.amount + action.payload }
+    default:
+      return state
   }
 
-  return state
+  // if (action.type === inc) {
+  //   return { amount: state.amount + 1 }
+  // }
+  // if (action.type === dec) {
+  //   return { amount: state.amount - 1 }
+  // }
+  // if (action.type === incByAmt) {
+  //   return { amount: state.amount + action.payload }
+  // }
+
+  // return state
 }
 
 // global state
@@ -33,7 +48,21 @@ function reducer(state = { amount: 1 }, action) {
 //   console.log(store.getState())
 // })
 
+// async alll
+// async function getUser() {
+//   const { data } = await axios('http://localhost:3000/accounts/1')
+//   console.log(data)
+// }
+
+// getUser()
+
 // action creators
+
+async function initUser(dispatch, getState) {
+  const { data } = await axios('http://localhost:3000/accounts/1')
+
+  dispatch({ type: init, payload: data.amount })
+}
 
 function increment() {
   return { type: inc }
@@ -48,5 +77,5 @@ function incrementByAmount(value) {
 }
 
 setInterval(() => {
-  store.dispatch(incrementByAmount(5))
+  store.dispatch(initUser)
 }, 2000)

@@ -2,17 +2,22 @@ import { applyMiddleware, createStore, compose } from 'redux'
 import logger from 'redux-logger'
 import { thunk } from 'redux-thunk'
 import axios from 'axios'
+import { combineReducers } from 'redux'
 // action name constants
-const init = 'init'
-const inc = 'increment'
-const dec = 'decrement'
-const incByAmt = 'incrementByAmount'
+const init = 'account/init'
+const inc = 'account/increment'
+const dec = 'account/decrement'
+const incByAmt = 'account/incrementByAmount'
+const incBonus = 'bonus/increment'
 
 // store
-const store = createStore(reducer, applyMiddleware(logger.default, thunk))
+const store = createStore(
+  combineReducers({ account: accuntReducer, bonus: bonusReducer }),
+  applyMiddleware(logger.default, thunk)
+)
 
 // reducer function
-function reducer(state = { amount: 1 }, action) {
+function accuntReducer(state = { amount: 1 }, action) {
   switch (action.type) {
     case init:
       return { amount: action.payload }
@@ -27,18 +32,21 @@ function reducer(state = { amount: 1 }, action) {
     default:
       return state
   }
+}
 
-  // if (action.type === inc) {
-  //   return { amount: state.amount + 1 }
-  // }
-  // if (action.type === dec) {
-  //   return { amount: state.amount - 1 }
-  // }
-  // if (action.type === incByAmt) {
-  //   return { amount: state.amount + action.payload }
-  // }
+function bonusReducer(state = { points: 1 }, action) {
+  switch (action.type) {
+    case incBonus:
+      return { points: state.points + 1 }
 
-  // return state
+    case incByAmt:
+      if (action.payload >= 100) {
+        return { points: state.points + 1 }
+      }
+
+    default:
+      return state
+  }
 }
 
 // global state
@@ -58,10 +66,12 @@ function reducer(state = { amount: 1 }, action) {
 
 // action creators
 
-async function getUser(dispatch, getState) {
-  const { data } = await axios('http://localhost:3000/accounts/1')
+function getUserAccount(id) {
+  return async (dispatch, getState) => {
+    const { data } = await axios(`http://localhost:3000/accounts/${id}`)
 
-  dispatch(initUser(data.amount))
+    dispatch(initUser(data.amount))
+  }
 }
 
 function initUser(value) {
@@ -80,6 +90,10 @@ function incrementByAmount(value) {
   return { type: incByAmt, payload: value }
 }
 
+function incrementBonus() {
+  return { type: incBonus }
+}
+
 setInterval(() => {
-  store.dispatch(getUser)
+  store.dispatch(incrementBonus())
 }, 5000)

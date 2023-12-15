@@ -4,11 +4,14 @@ import { thunk } from 'redux-thunk'
 import axios from 'axios'
 import { combineReducers } from 'redux'
 // action name constants
-const init = 'account/init'
+// const init = 'account/init'
 const inc = 'account/increment'
 const dec = 'account/decrement'
 const incByAmt = 'account/incrementByAmount'
 const incBonus = 'bonus/increment'
+const getAccUserPending = 'account/getUser/pending'
+const getAccUserFulfilled = 'account/getUser/fulfilled'
+const getAccUserRejectd = 'account/getUser/rejected'
 
 // store
 const store = createStore(
@@ -19,8 +22,12 @@ const store = createStore(
 // reducer function
 function accuntReducer(state = { amount: 1 }, action) {
   switch (action.type) {
-    case init:
-      return { amount: action.payload }
+    case getAccUserFulfilled:
+      return { amount: action.payload, pending: false }
+    case getAccUserRejectd:
+      return { ...state, error: action.error, pending: false }
+    case getAccUserPending:
+      return { ...state, pending: true }
     case inc:
       return { amount: state.amount + 1 }
 
@@ -68,14 +75,25 @@ function bonusReducer(state = { points: 1 }, action) {
 
 function getUserAccount(id) {
   return async (dispatch, getState) => {
-    const { data } = await axios(`http://localhost:3000/accounts/${id}`)
+    try {
+      dispatch(getAccountUserPending())
+      const { data } = await axios(`http://localhost:3000/accounts/${id}`)
 
-    dispatch(initUser(data.amount))
+      dispatch(getAccountUserFulfilled(data.amount))
+    } catch (error) {
+      dispatch(getAccountUserRejected(error.message))
+    }
   }
 }
 
-function initUser(value) {
-  return { type: init, payload: value }
+function getAccountUserFulfilled(value) {
+  return { type: getAccUserFulfilled, payload: value }
+}
+function getAccountUserPending() {
+  return { type: getAccUserPending }
+}
+function getAccountUserRejected(error) {
+  return { type: getAccUserRejectd, error: error }
 }
 
 function increment() {
@@ -95,5 +113,5 @@ function incrementBonus() {
 }
 
 setInterval(() => {
-  store.dispatch(incrementBonus())
+  store.dispatch(getUserAccount(1))
 }, 5000)

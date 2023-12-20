@@ -8,6 +8,7 @@ function Video({
   time,
   id,
   verified = true,
+  children
 }) {
   return (
     <>
@@ -27,6 +28,9 @@ function Video({
         <div className="views">
           {views} views <span>.</span>
           {time}
+        </div>
+        <div>
+          {children}
         </div>
       </div>
     </>

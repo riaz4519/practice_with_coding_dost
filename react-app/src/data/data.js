@@ -16,7 +16,7 @@ let videos = [
     verified: false,
   },
   {
-    title: 'React Js Tutorial',
+    title: 'MongoDB Tutorial',
     views: '10k',
     time: '1 year ago',
     channel: 'Coder Dost',

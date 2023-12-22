@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import './PlayButton.css'
 
 function PlayButton({ onPlay, onPause, children }) {
-  let playing = false
+ 
+  const [playing,setPlaying] = useState(false)
 
   function handleClick(e) {
     e.stopPropagation()
@@ -9,12 +11,12 @@ function PlayButton({ onPlay, onPause, children }) {
     if (playing) onPause()
     else onPlay()
 
-    playing = !playing
+   setPlaying(!playing)
   }
 
   return (
     <button onClick={handleClick}>
-      {children} {playing ? '>' : '||'}
+      {children} {playing ? '||' : '|>'}
     </button>
   )
 }

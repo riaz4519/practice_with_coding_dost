@@ -23,10 +23,11 @@ function App() {
   function updateVideo(video) {
     const index = videos.findIndex((v) => v.id === video.id)
 
-    const neVideos = [...videos]
+    const newVideos = [...videos]
 
-    neVideos.splice(index, 1, video)
-    setVideos(neVideos)
+    newVideos.splice(index, 1, video)
+    setVideos(newVideos)
+    setEditableVideo(null)
   }
 
   return (

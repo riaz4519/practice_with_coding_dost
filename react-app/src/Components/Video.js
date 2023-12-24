@@ -8,11 +8,19 @@ function Video({
   time,
   id,
   verified = true,
-  children
+  children,
+  deleteVideo,
+  editVideo,
 }) {
   return (
     <>
       <div className="container">
+        <button onClick={() => deleteVideo(id)} className="close">
+          X
+        </button>
+        <button onClick={() => editVideo(id)} className="edit">
+          Edit
+        </button>
         <div className="pic">
           <img
             src={`https://picsum.photos/id/${id}/100/100`}
@@ -29,9 +37,7 @@ function Video({
           {views} views <span>.</span>
           {time}
         </div>
-        <div>
-          {children}
-        </div>
+        <div>{children}</div>
       </div>
     </>
   )

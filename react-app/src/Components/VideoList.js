@@ -1,12 +1,12 @@
 import PlayButton from './PlayButton'
 import Video from './Video'
 
-function VideoList({ videos, deleteVideo, editVideo }) {
+function VideoList({ videos, dispatch, editVideo }) {
   return (
     <>
       {videos.map((video) => (
         <Video
-          deleteVideo={deleteVideo}
+          dispatch={dispatch}
           editVideo={editVideo}
           key={video.id}
           {...video}

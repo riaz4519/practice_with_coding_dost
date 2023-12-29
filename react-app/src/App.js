@@ -4,6 +4,8 @@ import { useContext, useReducer, useState } from 'react'
 import AddVideo from './Components/AddVideo'
 import VideoList from './Components/VideoList'
 import ThemeContext from './context/ThemeContext'
+import VideosContext from './context/VideosContext'
+import VideoDispatchContext from './context/VideoDispatchContext'
 
 function App() {
   const [editableVideo, setEditableVideo] = useState(null)
@@ -41,21 +43,24 @@ function App() {
 
   return (
     <ThemeContext.Provider value={mode}>
-      <div className={`App ${mode}`} onClick={() => console.log('App')}>
-        <button
-          onClick={() => {
-            setMode(mode === 'lightMode' ? 'darkMode' : 'lightMode')
-          }}
-        >
-          Mode
-        </button>
-        <AddVideo dispatch={dispatch} editableVideo={editableVideo}></AddVideo>
-        <VideoList
-          dispatch={dispatch}
-          editVideo={editVideo}
-          videos={videos}
-        ></VideoList>
-      </div>
+      <VideosContext.Provider value={videos}>
+        <VideoDispatchContext.Provider>
+          <div className={`App ${mode}`} onClick={() => console.log('App')}>
+            <button
+              onClick={() => {
+                setMode(mode === 'lightMode' ? 'darkMode' : 'lightMode')
+              }}
+            >
+              Mode
+            </button>
+            <AddVideo
+              dispatch={dispatch}
+              editableVideo={editableVideo}
+            ></AddVideo>
+            <VideoList dispatch={dispatch} editVideo={editVideo}></VideoList>
+          </div>
+        </VideoDispatchContext.Provider>
+      </VideosContext.Provider>
     </ThemeContext.Provider>
   )
 }

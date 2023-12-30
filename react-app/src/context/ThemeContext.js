@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-const ThemeContext = createContext("lightMode");
+const ThemeContext = createContext(null);
 
 
 export default ThemeContext;

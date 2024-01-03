@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './AddVideo.css'
 import useVideoDispatch from '../hooks/useVideoDispatch'
 
@@ -13,6 +13,9 @@ const initialState = {
 function AddVideo({ editableVideo }) {
   const [video, setVideo] = useState(initialState)
   const dispatch = useVideoDispatch()
+
+  let inputRef = useRef(null)
+
   function handleSubmit(e) {
     e.stopPropagation()
     e.preventDefault()
@@ -38,11 +41,16 @@ function AddVideo({ editableVideo }) {
     if (editableVideo) {
       setVideo(editableVideo)
     }
+
+    inputRef.current.focus()
+
+    // inputRef.current.value = 'hello world'
   }, [editableVideo])
 
   return (
     <form>
       <input
+        ref={inputRef}
         name="title"
         type="text"
         onChange={handleChange}

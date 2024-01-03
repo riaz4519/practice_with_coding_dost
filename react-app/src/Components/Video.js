@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import './Video.css'
 import ThemeContext from '../context/ThemeContext'
 import useVideoDispatch from '../hooks/useVideoDispatch'
@@ -17,6 +17,16 @@ function Video({
   const dispatch = useVideoDispatch()
 
   const theme = useContext(ThemeContext)
+
+  // useEffect(() => {
+  //   const idx = setInterval(() => {
+  //     console.log('video playing', id)
+  //   }, 3000)
+
+  //   return () => {
+  //     clearInterval(idx)
+  //   }
+  // }, [id])
 
   return (
     <>

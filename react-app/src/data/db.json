@@ -1,0 +1,84 @@
+{
+  "videos": [
+    {
+      "id": 1,
+      "title": "Big Hand for the Little Lady, A",
+      "channel": "coder dost",
+      "views": "100k",
+      "time": "11 days ago",
+      "verified": true
+    },
+    {
+      "id": 2,
+      "title": "Two Days, One Night (Deux jours, une nuit)",
+      "channel": "fahim md riaz",
+      "views": "5M",
+      "time": "1 Month ago",
+      "verified": true
+    },
+    {
+      "id": 3,
+      "title": "Company of Wolves, The",
+      "channel": "w3schools",
+      "views": "101k",
+      "time": "2 year ago",
+      "verified": true
+    },
+    {
+      "id": 4,
+      "title": "Mackenna's Gold",
+      "channel": "coder dost",
+      "views": "100k",
+      "time": "12 days ago",
+      "verified": true
+    },
+    {
+      "id": 5,
+      "title": "Gridiron Gang",
+      "channel": "fahim md riaz",
+      "views": "5M",
+      "time": "2 Month ago",
+      "verified": true
+    },
+    {
+      "id": 6,
+      "title": "Busher, The",
+      "channel": "w3schools",
+      "views": "101k",
+      "time": "3 year ago",
+      "verified": true
+    },
+    {
+      "id": 7,
+      "title": "Charlie Chan in Panama",
+      "channel": "coder dost",
+      "views": "100k",
+      "time": "13 days ago",
+      "verified": true
+    },
+    {
+      "id": 8,
+      "title": "Scourge",
+      "channel": "fahim md riaz",
+      "views": "5M",
+      "time": "3 Month ago",
+      "verified": true
+    },
+    {
+      "id": 9,
+      "title": "Bachelor Party Vegas",
+      "channel": "w3schools",
+      "views": "101k",
+      "time": "4 year ago",
+      "verified": true
+    },
+    {
+      "id": 10,
+      "title": "Kind Lady",
+      "channel": "coder dost",
+      "views": "100k",
+      "time": "14 days ago",
+      "verified": true
+    }
+  ]
+}

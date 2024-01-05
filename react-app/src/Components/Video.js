@@ -1,9 +1,9 @@
-import React, { useContext, useEffect } from 'react'
+import React, { memo, useContext, useEffect } from 'react'
 import './Video.css'
 import ThemeContext from '../context/ThemeContext'
 import useVideoDispatch from '../hooks/useVideoDispatch'
 
-function Video({
+const Video = memo(function Video({
   title,
   channel = 'Coder Dost',
   views,
@@ -27,6 +27,8 @@ function Video({
   //     clearInterval(idx)
   //   }
   // }, [id])
+
+  console.log('video rendering', id)
 
   return (
     <>
@@ -60,6 +62,6 @@ function Video({
       </div>
     </>
   )
-}
+})
 
 export default Video

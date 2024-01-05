@@ -1,12 +1,11 @@
-import { useContext, useState } from 'react'
+import { memo, useContext, useState } from 'react'
 import './PlayButton.css'
 import ThemeContext from '../context/ThemeContext'
 
-function PlayButton({ onPlay, onPause, children }) {
-  
+const PlayButton = memo(function PlayButton({ onPlay, onPause, children }) {
   const themeContext = useContext(ThemeContext)
- 
-  const [playing,setPlaying] = useState(false)
+
+  const [playing, setPlaying] = useState(false)
 
   function handleClick(e) {
     e.stopPropagation()
@@ -14,14 +13,16 @@ function PlayButton({ onPlay, onPause, children }) {
     if (playing) onPause()
     else onPlay()
 
-   setPlaying(!playing)
+    setPlaying(!playing)
   }
+
+  console.log("button")
 
   return (
     <button className={`${themeContext}`} onClick={handleClick}>
       {children} {playing ? '||' : '|>'}
     </button>
   )
-}
+})
 
 export default PlayButton

@@ -1,17 +1,18 @@
 import './App.css'
-import videoDB from './data/data'
-import { useCallback, useReducer, useState } from 'react'
+
+import { useCallback, useReducer, useRef, useState } from 'react'
 import AddVideo from './Components/AddVideo'
 import VideoList from './Components/VideoList'
 import ThemeContext from './context/ThemeContext'
 import VideosContext from './context/VideosContext'
 import VideoDispatchContext from './context/VideoDispatchContext'
 import Counter from './Components/Counter'
-import { act } from 'react-dom/test-utils'
 
 function App() {
   const [editableVideo, setEditableVideo] = useState(null)
   const [mode, setMode] = useState('darkMode')
+
+  const inputRef = useRef(null)
 
   function videoReducer(videos, action) {
     switch (action.type) {
@@ -52,7 +53,8 @@ function App() {
       <VideosContext.Provider value={videos}>
         <VideoDispatchContext.Provider value={dispatch}>
           <div className={`App ${mode}`} onClick={() => console.log('App')}>
-            <Counter></Counter>
+            {/* <Counter></Counter> */}
+            <button onClick={() => inputRef.current.jumpTo()}>focus</button>
             <button
               onClick={() => {
                 setMode(mode === 'lightMode' ? 'darkMode' : 'lightMode')
@@ -60,7 +62,7 @@ function App() {
             >
               Mode
             </button>
-            <AddVideo editableVideo={editableVideo}></AddVideo>
+            <AddVideo ref={inputRef} editableVideo={editableVideo}></AddVideo>
             <VideoList editVideo={editVideo}></VideoList>
           </div>
         </VideoDispatchContext.Provider>

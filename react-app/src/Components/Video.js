@@ -1,4 +1,10 @@
-import React, { memo, useContext, useEffect } from 'react'
+import React, {
+  memo,
+  useContext,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+} from 'react'
 import './Video.css'
 import ThemeContext from '../context/ThemeContext'
 import useVideoDispatch from '../hooks/useVideoDispatch'
@@ -28,11 +34,19 @@ const Video = memo(function Video({
   //   }
   // }, [id])
 
+  const ref = useRef(null)
+
+  useLayoutEffect(() => {
+    const { height } = ref.current.getBoundingClientRect()
+
+    console.log(height)
+  }, [])
+
   console.log('video rendering', id)
 
   return (
     <>
-      <div className={`container ${theme}`}>
+      <div ref={ref} className={`container ${theme}`}>
         <button
           onClick={() => dispatch({ type: 'DELETE', payload: id })}
           className="close"

@@ -1,29 +1,28 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  account: 10,
+  amount: 10,
 }
 
-
-export const account = createSlice({
-
-  name : "account",
+export const accountSlice = createSlice({
+  name: 'account',
   initialState,
-  reducers :{
-
-    increment : (state) =>{
-      state.
-    }
-
-
-  }
-
-
-
+  reducers: {
+    increment: (state) => {
+      state.amount++ //immer
+    },
+    decrement: (state) => {
+      state.amount--
+    },
+    incrementByAmount: (state, action) => {
+      state.amount += action.payload
+    },
+  },
 })
 
+export const { increment, decrement, incrementByAmount } = accountSlice.actions
 
-
+export default accountSlice.reducer
 
 // import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 // import axios from 'axios';

@@ -9,7 +9,7 @@ export function bonusReducer(state = { points: 1 }, action) {
       if (action.payload >= 100) {
         return { points: state.points + 1 }
       }
-      break
+      return state
 
     default:
       return state

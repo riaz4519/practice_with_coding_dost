@@ -8,6 +8,7 @@ import { thunk } from 'redux-thunk'
 import { applyMiddleware, combineReducers, createStore } from 'redux'
 import { accuntReducer } from './reducers/account'
 import { bonusReducer } from './reducers/bonus'
+import { Provider } from 'react-redux'
 
 const store = createStore(
   combineReducers({ account: accuntReducer, bonus: bonusReducer }),
@@ -17,7 +18,9 @@ const store = createStore(
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App  />
+    </Provider>
   </React.StrictMode>
 )
 

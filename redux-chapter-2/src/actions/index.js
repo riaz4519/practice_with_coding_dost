@@ -13,7 +13,9 @@ export function getUserAccount(id) {
   return async (dispatch, getState) => {
     try {
       dispatch(getAccountUserPending())
-      const { data } = await axios(`http://localhost:3000/accounts/${id}`)
+      const { data } = await axios(`http://localhost:5000/accounts/${id}`)
+
+      console.log(data)
 
       dispatch(getAccountUserFulfilled(data.amount))
     } catch (error) {

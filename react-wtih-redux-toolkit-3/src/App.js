@@ -1,13 +1,13 @@
-import { useSelector } from 'react-redux';
-import './App.css';
-import Account from './components/Account';
-import Bonus from './components/Bonus';
-import Reward from './components/Reward';
+import { useSelector } from 'react-redux'
+import './App.css'
+import Account from './components/Account'
+import Bonus from './components/Bonus'
+import Reward from './components/Reward'
+import Admin from './components/Admin'
 
 function App() {
-
-  const amount= useSelector(state=>state.account.amount);
-  const points= useSelector(state=>state.bonus.points)
+  const amount = useSelector((state) => state.account.amount)
+  const points = useSelector((state) => state.bonus.points)
 
   return (
     <div className="App">
@@ -17,9 +17,9 @@ function App() {
       <Account></Account>
       <Bonus></Bonus>
       <Reward></Reward>
-
+      <Admin></Admin>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
